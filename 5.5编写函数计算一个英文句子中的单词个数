@@ -22,25 +22,32 @@ We hope everyone watches them with warmth.
 
 #include <iostream>
 using namespace std;
+int countWord(char str[]);
 int main()
 {
 	char s[500];
+	int n;
 	cin.getline(s, 500);
+	n = countWord(s);
+	cout<<n<<endl;
+	return 0;
+}
+int countWord(char str[])
+{
 	int i=0, count=0;
-	while (s[i]!='\0')
+	while (str[i]!='\0')
 	{
-		if (s[i]==','||s[i]=='.'||s[i]=='?')
+		if (str[i]==','||str[i]=='.'||str[i]=='?')
 		{
-			s[i]=' ';
+			str[i]=' ';
 		}
 		i++;
 	}
 	i=0;
-	while (s[i]!='\0')
+	while (str[i]!='\0')
 	{
-		if (s[i]!=' '&&s[i+1]==' ') count++;
+		if (str[i]!=' '&&str[i+1]==' ') count++;
 		i++;
 	}
-	cout<<count<<endl;
-	return 0;
+	return count;
 }
