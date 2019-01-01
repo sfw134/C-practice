@@ -1,0 +1,48 @@
+题目内容：
+
+编写函数来使一个字符串逆序输出，要求必须用递归函数。
+
+输入格式:
+
+一个字符串，不会超过100个字符长，中间可能包含空格
+
+输出格式：
+
+该字符串的逆序
+
+【注意】使用字符数组和递归实现。
+
+输入样例：
+
+Hello,everyone
+
+输出样例：
+
+enoyreve,olleH
+
+#include <iostream>
+using namespace std;
+void reverse(char str[], int begin, int n);
+int main()
+{
+	char ch[100];
+	int n=0;
+	cin.getline(ch, 100);
+	while (ch[n]!='\0') n++;
+	reverse(ch, 0, n);
+	cout<<ch<<endl;
+	return 0;
+}
+void reverse(char str[], int begin, int n)
+{	
+	char tmp;
+	if (n==0) return;
+	else if (n==1) return;
+	else
+	{
+		tmp = str[begin];
+		str[begin] = str[begin+n-1];
+		str[begin+n-1] = tmp;
+		reverse(str, begin+1, n-2);
+	}
+}
