@@ -1,0 +1,81 @@
+题目内容：
+
+设计一个Weekday类，成员函数SetDay()设置星期几，IncDay()前进一天，NowDay()打印当前是星期几。
+
+
+
+输入格式:
+
+用户输入一个数字，0表示星期日，1表示星期一，类推，6表示星期六，用该数字初始化Weekday类
+
+
+
+输出格式：
+
+使用中文打印出从当日起连续3天是星期几（不够三天时，循环）
+
+
+
+输入样例：
+
+0
+
+
+
+输出样例：
+
+星期日
+
+星期一
+
+星期二
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+class WEEKDAY
+{
+	int number;
+	char weekday[10];
+	public:
+		void SetDay(int n);
+		void IncDay();
+		void NowDay();
+};
+void WEEKDAY::SetDay(int n)
+{
+	number = n;
+	switch (number)
+	{
+		case 0: strcpy(weekday, "星期日"); break;
+		case 1: strcpy(weekday, "星期一"); break;
+		case 2: strcpy(weekday, "星期二"); break;
+		case 3: strcpy(weekday, "星期三"); break;
+		case 4: strcpy(weekday, "星期四"); break;
+		case 5: strcpy(weekday, "星期五"); break;
+		case 6: strcpy(weekday, "星期六"); break;
+	}	
+}
+void WEEKDAY::IncDay()
+{
+	int n;
+	n = (number+1)%7;
+	WEEKDAY::SetDay(n);	
+}
+void WEEKDAY::NowDay()
+{
+	cout<<weekday<<endl;
+}
+int main()
+{
+	WEEKDAY w;
+	int n;
+	cin>>n;
+	w.SetDay(n);
+	for (int i=0;i<3;i++)
+	{
+		w.NowDay();
+		w.IncDay();
+	}
+	return 0;
+}
