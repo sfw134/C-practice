@@ -1,0 +1,68 @@
+题目内容：
+
+设计一个Person类，包含name、age、sex属性以及对这些属性操作的方法。实现并测试这个类。
+根据类的封装性要求，把name、age、sex声明为私有的数据成员，声明公有的成员函数Register()、ShowMe()来访问这些属性，在Register()函数中对数据成员进行初始化。person1通过cin来得到信息，person2通过Register("Zhang3", 
+19, 'm') 来得到信息。
+
+
+
+输入格式:
+
+person1的信息
+
+
+
+输出格式：
+
+person1和person2的信息
+
+
+
+输入样例：
+
+Li4 18 f
+
+
+
+输出样例：
+
+Li4 18 f
+
+Zhang3 19 m
+
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+class PERSON
+{
+	private:
+		char name[10];
+		int age;
+		char sex;
+	public:
+		void Register(char s1[10], int a, char s2);
+		void ShowMe();
+};
+void PERSON::Register(char s1[10], int a, char s2)
+{
+	strcpy(name, s1);
+	age = a;
+	sex = s2;
+}
+void PERSON::ShowMe()
+{
+	cout<<name<<" "<<age<<" "<<sex<<endl;
+}
+int main()
+{
+	PERSON p1, p2;
+	char s1[10], s2;
+	int a;
+	cin>>s1>>a>>s2;
+	p1.Register(s1, a, s2);
+	p2.Register("Zhang3", 19, 'm');
+	p1.ShowMe();
+	p2.ShowMe();
+	return 0;
+}
