@@ -1,0 +1,77 @@
+题目内容：
+
+设计一个Dog类，包含name、age、sex和weight等属性以及对这些属性操作的方法。实现并测试这个类。
+根据类的封装性要求，把name、age、sex和weight声明为私有的数据成员，编写公有成员函数setdata()对数据进行初始化，GetName()、GetAge()、GetSex()和GetWeight()获取相应属性。初始化数据由用户输入。
+
+
+
+输入格式:
+
+Dog类对象的初始化数据
+
+
+
+输出格式：
+
+根据Dog类对象的初始化数据输出一句话，请严格按照格式输出，句末有点号。
+
+
+
+输入样例：
+
+ahuang 3 m 2.4
+
+
+
+输出样例：
+
+It is my dog.
+
+Its name is ahuang.
+
+It is 3 years old.
+
+It is male.
+
+It is 2.4 kg.
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+class DOG
+{
+	private:
+		char name[10];
+		int age;
+		char sex[6];
+		double weight;
+	public:
+		void setdata(char s1[10], int a, char s2[2], double w);
+		char *GetName() { return name;}
+		int GetAge() { return age;}
+		char *GetSex() { return sex;}
+		double GetWeight(){ return weight;}
+};
+void DOG::setdata(char s1[10], int a, char s2[2], double w)
+{
+	strcpy(name, s1);
+	age = a;
+	if (!strcmp(s2, "m")) strcpy(sex, "male");
+	else strcpy(sex, "female");
+	weight = w;
+}
+int main()
+{
+	DOG d;
+	char s1[10], s2[2];
+	int a;
+	double w;
+	cin>>s1>>a>>s2>>w;
+	d.setdata(s1, a, s2, w);
+	cout<<"It is my dog."<<endl;
+	cout<<"Its name is "<<d.GetName()<<"."<<endl;
+	cout<<"It is "<<d.GetAge()<<" years old."<<endl;
+	cout<<"It is "<<d.GetSex()<<"."<<endl;
+	cout<<"It is "<<d.GetWeight()<<" kg."<<endl;
+	return 0;
+}
