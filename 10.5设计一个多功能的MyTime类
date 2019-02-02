@@ -1,0 +1,161 @@
+题目内容：
+设计一个多功能的MyTime类，设计多个重载的构造函数，可以设置时间，进行时间的加减运算，按各种可能的格式（24小时制、12小时制）输出时间。
+注意：
+（1）请考虑设置的时间的合理性（时0-23； 分0-59；秒0-59）。
+（2）12小时制中，12:00:00前为AM， 12:00:00及以后为PM
+（3）加减运算的加数、减数是一个时间的长度，单位为“时、分、秒”
+（4）构造函数：没参数时，设置时间为0时 0分 0秒；有参数时，设置成给定的时、分、秒。
+ 在主函数中
+（1）声明两个对象t1,t2，并通过构造函数初始化它们（t2初始化为为8：10：30）
+（2）显示按12、14小时制显示t1、t2的时间。
+（3）再设置t1的时间，数据由用户输入。
+（4）再输入待加减的时间。
+（5）t1加输入的时间，并按12小时和24小时制显示。
+（6）t2减输入的时间，并按12小时和24小时制显示。
+
+输入格式:
+第一行为t1的时间，第二行为待加减的时间
+
+输出格式：
+显示按12、14小时制显示t1、t2的初始时间
+t1加输入的待加减的时间按12小时和24小时制显示。
+t2减输入的待加减的时间按12小时和24小时制显示
+
+输入样例：
+11 30 30
+5 15 20
+
+输出样例：
+00:00:00 AM
+00:00:00
+08:10:30 AM
+08:10:30
+04:45:50 PM
+16:45:50
+02:55:10 AM
+02:55:10
+
+
+#include <iostream>
+using namespace std;
+class MyTime
+{
+	int hour, minute, second;
+	void normal();
+public:
+	MyTime();
+	MyTime(int, int, int);
+	void set(int ,int ,int);
+	void show_12();
+	void show_24();
+	void add(int , int ,int);
+	void sub(int ,int ,int);
+};
+MyTime::MyTime()
+{
+	hour = minute =second =0;
+}
+MyTime::MyTime(int h, int m, int s)
+{
+	if (second<0||second>59) second = 0;
+	else second = s;
+	if (minute<0||minute>59) minute = 0;
+	else minute = m;
+	if (hour<0||hour>23) hour = 0;
+	else hour = h;
+}
+void MyTime::set(int h, int m, int s)
+{
+	if (second<0||second>59) second = 0;
+	else second = s;
+	if (minute<0||minute>59) minute = 0;
+	else minute = m;
+	if (hour<0||hour>23) hour = 0;
+	else hour = h;
+}
+void MyTime::normal()
+{
+	if (second>59) 
+	{
+		second -= 60;
+		minute += 1;
+	}
+	if (second<0)
+	{
+		second += 60;
+		minute -= 1;
+	}
+	if (minute>59)
+	{
+		minute -= 60;
+		hour += 1;
+	}
+	if (minute<0)
+	{
+		minute += 60;
+		hour -= 1;
+	}
+	if (hour>23) hour -= 24;
+	if (hour<0) hour += 24; 
+} 
+void MyTime::show_12()
+{
+	bool flag = true;
+	int h=hour;
+	if (h>=12) 
+	{
+		h = h-12;
+		flag = false;
+	}
+	if (h<10) cout<<"0";
+	cout<<h<<":";
+	if (minute<10) cout<<"0";
+	cout<<minute<<":";
+	if (second<10) cout<<"0";
+	cout<<second;
+	if (flag) cout<<" AM";
+	else cout<<" PM";
+}
+void MyTime::show_24()
+{
+	if (hour<10) cout<<"0";
+	cout<<hour<<":";
+	if (minute<10) cout<<"0";
+	cout<<minute<<":";
+	if (second<10) cout<<"0";
+	cout<<second;
+}
+void MyTime::add(int h, int m, int s)
+{
+	hour += h;
+	minute += m;
+	second += s;
+	normal();
+}
+void MyTime::sub(int h, int m, int s)
+{
+	hour -= h;
+	minute -= m;
+	second -= s;
+	normal();
+}
+int main()
+{
+	int h, m, s;
+	MyTime t1, t2;
+	t2.set(8, 10, 30);  
+	t1.show_12();cout<<endl;
+	t1.show_24();cout<<endl;
+	t2.show_12();cout<<endl;
+	t2.show_24();cout<<endl;
+	cin>>h>>m>>s;
+	t1.set(h, m, s);
+	cin>>h>>m>>s;
+	t1.add(h, m, s);
+	t2.sub(h, m, s);
+	t1.show_12();cout<<endl;
+	t1.show_24();cout<<endl;
+	t2.show_12();cout<<endl;
+	t2.show_24();cout<<endl;
+	return 0;
+}
