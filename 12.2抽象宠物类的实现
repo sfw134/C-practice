@@ -1,0 +1,97 @@
+题目内容：
+定义抽象宠物类Pet，其中数据成员包括：名字，年龄和颜色；成员函数包括：构造函数；获取成员数据值的函数；纯虚函数Speak和纯虚函数GetInfo; 
+定义Pet的派生类Cat和Dog，其中Speak函数分别显示猫和狗的叫声,而GetInfo函数分别输出Cat和Dog的属性。主函数中定义Pet指针变量，分别指向动态生成的Cat和Dog对象，并通过指针分别调用GetInfo函数和Speak函数，观察并分析输出结果。
+
+输入格式:
+猫和狗的信息
+
+输出格式：
+请参考输出样例，严格遵照格式要求输出，建议直接复制样例中的部分文字粘贴进自己的代码中.(冒号是英文冒号，冒号后无空格)
+
+输入样例：
+mikey 2 blue
+benben 1 black
+
+输出样例：
+猫的名字:mikey
+猫的年龄:2
+猫的颜色:blue
+猫的叫声:miao!miao!
+狗的名字:benben
+狗的年龄:1
+狗的颜色:black
+狗的叫声:wang!wang!
+
+
+答案代码如下
+#include <iostream>
+#include <string.h>
+using namespace std;
+class Pet
+{
+	char name[10];
+	int age;
+	char color[10];
+public:
+	Pet(char *p, int a, char *q){
+		strcpy(name, p);
+		age = a;
+		strcpy(color, q);
+	}
+	char * getName() {
+		return name;
+	}
+	int getAge(){
+		return age;
+	}
+	char * getColor(){
+		return color;
+	}
+	virtual void Speak()=0;
+	virtual void GetInfo() = 0;
+};
+class Cat:public Pet
+{
+public:
+	Cat(char *p, int a, char *q):Pet(p, a, q){}
+	void Speak(){
+		cout<<"miao!miao!";
+	}
+	void GetInfo(){
+		cout<<"猫的名字:"<<Pet::getName()<<endl;
+		cout<<"猫的年龄:"<<Pet::getAge()<<endl;
+		cout<<"猫的颜色:"<<Pet::getColor();
+	}
+};
+class Dog:public Pet
+{
+public:
+	Dog(char *p, int a, char *q):Pet(p, a, q){};
+	void Speak(){
+		cout<<"wang!wang!";
+	}
+	void GetInfo(){
+		cout<<"狗的名字:"<<Pet::getName()<<endl;
+		cout<<"狗的年龄:"<<Pet::getAge()<<endl;
+		cout<<"狗的颜色:"<<Pet::getColor();
+	}
+};
+int main()
+{
+	Pet *p;
+	char name[10], color[10];
+	int age;
+	cin>>name>>age>>color;
+	p = new Cat(name, age, color);
+	p->GetInfo(); 
+	cout<<endl<<"猫的叫声:";
+	p->Speak();
+	cout<<endl;
+	cin>>name>>age>>color;
+	p = new Dog(name, age, color);
+	p->GetInfo();
+	cout<<endl<<"狗的叫声:";
+	p->Speak();
+	
+	return 0;
+}
