@@ -1,0 +1,53 @@
+题目内容：
+定义一个复数类，并重载加法运算符（+）和赋值运算符（=）以适用对复数运算的要求。
+
+输入格式:
+依次输入两个复数的实部和虚部
+
+输出格式：
+先按照要求格式输出两个复数，然后输出这两个复数的和
+
+输入样例：
+1 2
+3 4
+
+输出样例：
+1+j2
+3+j4
+4+j6
+
+
+答案代码如下
+#include <iostream>
+using namespace std;
+class COMPLEX
+{
+	double x, y;
+public:
+	COMPLEX() { x = y = 0;}
+	COMPLEX(double a, double b){
+		x = a;
+		y = b;
+	}
+	COMPLEX operator +(COMPLEX b){
+		COMPLEX c;
+		c.x = x+b.x;
+		c.y = y+b.y;
+		return c;
+	}
+	void operator =(COMPLEX b){
+		x = b.x;
+		y = b.y;
+	}
+	void show(){
+		cout<<x<<"+"<<"j"<<y;
+	}
+};
+int main()
+{
+	COMPLEX a(1, 2), b(3, 4);
+	a.show(); cout<<endl;
+	b.show(); cout<<endl;
+	(a+b).show(); cout<<endl;
+	return 0;
+}
